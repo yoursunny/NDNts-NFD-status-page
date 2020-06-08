@@ -101,6 +101,7 @@ const preact = {
   ],
   envs: ["browser"],
   rules: {
+    "@typescript-eslint/no-unused-vars": "error",
     "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
     "react/jsx-filename-extension": ["error", { extensions: [".tsx"] }],
     "react/jsx-no-bind": "off",

@@ -8,9 +8,12 @@ interface Props {
   children: (filter: NameFilter) => JSX.Element;
 }
 
-interface State {
+interface Toggles {
   hideNlsr: boolean;
   hideKey: boolean;
+}
+
+interface State extends Toggles {
   filter?: NameFilter;
 }
 
@@ -20,36 +23,41 @@ const KEY_COMP = NameComponent.from("KEY");
 
 export class NameFiltered extends Component<Props, State> {
   public componentDidMount() {
+    let toggles: Toggles;
     try {
       const { hideNlsr, hideKey } = JSON.parse(getCookie("NameFiltered")!);
-      this.setState({ hideNlsr: !!hideNlsr, hideKey: !!hideKey }, this.updateFilter);
+      toggles = { hideNlsr: !!hideNlsr, hideKey: !!hideKey };
     } catch {
-      this.setState({ hideNlsr: false, hideKey: false }, this.updateFilter);
+      toggles = { hideNlsr: false, hideKey: false };
     }
+    this.setState({ ...toggles, filter: this.makeFilter(toggles) });
   }
 
-  private handleNlsrChange = () => {
-    this.setState((prev) => ({ hideNlsr: !prev.hideNlsr }), this.updateFilter);
-  };
+  private makeFilter({ hideNlsr, hideKey }: Readonly<Toggles>): NameFilter {
+    setCookie("NameFiltered", JSON.stringify({ hideNlsr, hideKey }), { path: "", sameSite: "Strict" });
+    return (name: Name) => {
+      switch (true) {
+        case hideNlsr && (nameIncludes(name, NLSR_ROUTER_COMP) || nameIncludes(name, NLSR_OPERATOR_COMP)):
+        case hideKey && nameIncludes(name, KEY_COMP):
+          return false;
+      }
+      return true;
+    };
+  }
 
-  private handleKeyChange = () => {
-    this.setState((prev) => ({ hideKey: !prev.hideKey }), this.updateFilter);
-  };
-
-  private updateFilter = () => {
-    this.setState(({ hideNlsr, hideKey }) => {
-      setCookie("NameFiltered", JSON.stringify({ hideNlsr, hideKey }), { path: "", sameSite: "Strict" });
-      return {
-        filter: (name: Name) => {
-          switch (true) {
-            case hideNlsr && (nameIncludes(name, NLSR_ROUTER_COMP) || nameIncludes(name, NLSR_OPERATOR_COMP)):
-            case hideKey && nameIncludes(name, KEY_COMP):
-              return false;
-          }
-          return true;
-        },
-      };
-    });
+  private handleChange = (toggle: keyof Toggles): () => void => {
+    return () => {
+      this.setState((prev) => {
+        const toggles = {
+          ...prev,
+          [toggle]: !prev[toggle],
+        };
+        return {
+          [toggle]: !prev[toggle],
+          filter: this.makeFilter(toggles),
+        };
+      });
+    };
   };
 
   public render() {
@@ -61,12 +69,14 @@ export class NameFiltered extends Component<Props, State> {
         <form class="pure-form">
           <fieldset>
             <label>
-              <input type="checkbox" checked={this.state.hideNlsr} onChange={this.handleNlsrChange}/>
+              <input type="checkbox" checked={this.state.hideNlsr} onChange={this.handleChange("hideNlsr")}/>
+              {" "}
               hide NLSR names
             </label>
             {" "}
             <label>
-              <input type="checkbox" checked={this.state.hideKey} onChange={this.handleKeyChange}/>
+              <input type="checkbox" checked={this.state.hideKey} onChange={this.handleChange("hideKey")}/>
+              {" "}
               hide KEY names
             </label>
           </fieldset>

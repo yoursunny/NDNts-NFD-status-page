@@ -1,11 +1,15 @@
 import type { Name } from "@ndn/packet";
+// @ts-expect-error
+import * as hashquery from "hashquery";
 import { Component, Fragment, h } from "preact";
 
 import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext, OldNfdStatusContext } from "../context";
 import type { NfdStatusRequests } from "../model/nfd-status/requests";
 import type { NfdStatus } from "../model/nfd-status/types";
+import { About } from "./about";
 import { Footer } from "./common/footer";
 import { If } from "./common/if";
+import { Loading } from "./common/loading";
 import { NavMenu } from "./common/nav-menu";
 import { FaceView } from "./face/view";
 import { Overview } from "./overview";
@@ -26,7 +30,7 @@ interface State {
 export class App extends Component<Props, State> {
   constructor() {
     super();
-    this.setState({ currentTab: "Overview" });
+    this.setState({ currentTab: hashquery.get("tab") || "Overview" });
   }
 
   public componentDidMount() {
@@ -53,10 +57,14 @@ export class App extends Component<Props, State> {
     });
   };
 
+  public getSnapshotBeforeUpdate() {
+    hashquery.set("tab", this.state.currentTab);
+  }
+
   public render() {
     const { latest, oldest } = this.props.requests;
     if (!latest || !oldest) {
-      return <h1>loading</h1>;
+      return <Loading requests={this.props.requests}/>;
     }
     return (
       <NfdStatusContext.Provider value={latest}>
@@ -81,7 +89,7 @@ export class App extends Component<Props, State> {
         <div class="pure-g">
           <div class="pure-u-1">
             <NavMenu
-              tabs={["Overview", "Faces", "Routes", "Strategies"]}
+              tabs={["Overview", "Faces", "Routes", "Strategies", "About"]}
               selected={tab}
               onChange={(tab) => this.setState({ currentTab: tab })}
             >
@@ -103,9 +111,12 @@ export class App extends Component<Props, State> {
             <If show={tab === "Strategies"}>
               <StrategyView/>
             </If>
+            <If show={tab === "About"}>
+              <About/>
+            </If>
           </section>
         </div>
-        <Footer uri={this.props.requests.uri} interval={this.props.requests.interval}/>
+        <Footer requests={this.props.requests}/>
       </Fragment>
     );
   }

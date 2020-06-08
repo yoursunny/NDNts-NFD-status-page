@@ -24,7 +24,7 @@ export class NfdStatusRequests {
 
   public start(): void {
     this.update();
-    this.timer = setInterval(this.update, this.interval);
+    this.timer = setInterval(this.update, this.interval) as unknown as number;
   }
 
   public stop(): void {

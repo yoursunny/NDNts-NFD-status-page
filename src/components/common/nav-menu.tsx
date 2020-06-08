@@ -3,7 +3,7 @@ import { Component, h } from "preact";
 
 interface Props {
   tabs: string[];
-  selected: string;
+  selected?: string;
   onChange?: (tab: string) => void;
 }
 

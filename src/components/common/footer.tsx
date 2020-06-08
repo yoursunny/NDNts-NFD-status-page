@@ -1,18 +1,20 @@
-import { Component, Fragment, h } from "preact";
+import { h } from "preact";
 import prettyMilliseconds from "pretty-ms";
 
+import type { NfdStatusRequests } from "../../model/nfd-status/requests";
+
 interface Props {
-  uri: string;
-  interval: number;
+  requests: NfdStatusRequests;
 }
 
-export function Footer({ uri, interval }: Props) {
+export function Footer({ requests: { uri, interval } }: Props) {
   return (
     <footer class="pure-g">
-      <div class="pure-u-1-2">NFD status page, powered by NDNts</div>
-      <div class="pure-u-1-2">
+      <div class="pure-u-1">
+        NFD status page,
+        {" "}
         {uri === "/" ? location.hostname : uri},
-        refresh every {prettyMilliseconds(interval)}
+        refreshing every {prettyMilliseconds(interval)}
       </div>
     </footer>
   );
