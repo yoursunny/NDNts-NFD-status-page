@@ -4,14 +4,15 @@ import { h } from "preact";
 import { useContext } from "preact/hooks";
 
 import { GotoRibContext, NfdStatusContext } from "../../context";
+import type { NameFilter } from "../common/name-filtered";
 import { RibRow } from "./row";
 
 interface Props {
   selected?: Name;
-  onSelect?: (name: Name) => void;
+  filter: NameFilter;
 }
 
-export function RibTable({ selected, onSelect }: Props) {
+export function RibTable({ selected, filter }: Props) {
   const { rib } = useContext(NfdStatusContext);
   const gotoRib = useContext(GotoRibContext);
   return (
@@ -24,7 +25,7 @@ export function RibTable({ selected, onSelect }: Props) {
       </thead>
       <tbody>
         {
-          rib.map((entry) => (
+          rib.filter(({ prefix }) => filter(prefix)).map((entry) => (
             <RibRow
               key={toHex(entry.prefix.value)} entry={entry}
               highlight={selected?.equals(entry.prefix)}

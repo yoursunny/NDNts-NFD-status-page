@@ -5,7 +5,8 @@ import prettyMilliseconds from "pretty-ms";
 import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext } from "../context";
 
 export function Overview() {
-  const { host, faces, rib, routes, defaultStrategy } = useContext(NfdStatusContext);
+  const status = useContext(NfdStatusContext);
+  const { host, faces, rib, routes, defaultStrategy } = status;
   const { cnt } = host;
   const gotoFace = useContext(GotoFaceContext);
   const gotoRib = useContext(GotoRibContext);
@@ -16,7 +17,7 @@ export function Overview() {
       <table class="pure-table pure-table-bordered">
         <tr>
           <td>uptime</td>
-          <td>{prettyMilliseconds(Date.now() - host.startTime.getTime())}</td>
+          <td>{prettyMilliseconds(status.timestamp - host.startTime)}</td>
         </tr>
         <tr>
           <td onClick={() => gotoFace()}><a href="javascript:;">faces</a></td>

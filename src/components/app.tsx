@@ -1,19 +1,19 @@
 import type { Name } from "@ndn/packet";
 import { Component, Fragment, h } from "preact";
 
-import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext } from "../context";
+import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext, OldNfdStatusContext } from "../context";
+import type { NfdStatusRequests } from "../model/nfd-status/requests";
 import type { NfdStatus } from "../model/nfd-status/types";
-import { parseNfdStatusXml } from "../model/nfd-status/xml";
+import { Footer } from "./common/footer";
 import { If } from "./common/if";
 import { NavMenu } from "./common/nav-menu";
 import { FaceView } from "./face/view";
 import { Overview } from "./overview";
 import { RibView } from "./rib/view";
-import { StrategyView } from "./strategy";
+import { StrategyView } from "./strategy/view";
 
 interface Props {
-  uri: string;
-  interval: number;
+  requests: NfdStatusRequests;
 }
 
 interface State {
@@ -29,22 +29,8 @@ export class App extends Component<Props, State> {
     this.setState({ currentTab: "Overview" });
   }
 
-  private timer = 0;
-
-  private update = async () => {
-    const xml = await fetch(this.props.uri).then((r) => r.text());
-    const doc = new DOMParser().parseFromString(xml, "application/xml");
-    const status = parseNfdStatusXml(doc);
-    this.setState({ status });
-  };
-
   public componentDidMount() {
-    setTimeout(this.update, 0);
-    this.timer = setInterval(this.update, this.props.interval);
-  }
-
-  public componentWillUnmount() {
-    clearInterval(this.timer);
+    this.props.requests.onFetched = (status) => this.setState({ status });
   }
 
   private gotoFace = (id?: number) => {
@@ -68,26 +54,28 @@ export class App extends Component<Props, State> {
   };
 
   public render() {
-    const { status } = this.state;
-    if (!status) {
+    const { latest, oldest } = this.props.requests;
+    if (!latest || !oldest) {
       return <h1>loading</h1>;
     }
     return (
-      <NfdStatusContext.Provider value={status}>
-        <GotoFaceContext.Provider value={this.gotoFace}>
-          <GotoRibContext.Provider value={this.gotoRib}>
-            <GotoStrategiesContext.Provider value={this.gotoStrategies}>
-              {this.renderView()}
-            </GotoStrategiesContext.Provider>
-          </GotoRibContext.Provider>
-        </GotoFaceContext.Provider>
+      <NfdStatusContext.Provider value={latest}>
+        <OldNfdStatusContext.Provider value={oldest}>
+          <GotoFaceContext.Provider value={this.gotoFace}>
+            <GotoRibContext.Provider value={this.gotoRib}>
+              <GotoStrategiesContext.Provider value={this.gotoStrategies}>
+                {this.renderView()}
+              </GotoStrategiesContext.Provider>
+            </GotoRibContext.Provider>
+          </GotoFaceContext.Provider>
+        </OldNfdStatusContext.Provider>
       </NfdStatusContext.Provider>
     );
   }
 
   private renderView() {
     const { currentTab: tab } = this.state;
-    const { host } = this.state.status!;
+    const version = this.props.requests.latest!.host.version;
     return (
       <Fragment>
         <div class="pure-g">
@@ -97,7 +85,7 @@ export class App extends Component<Props, State> {
               selected={tab}
               onChange={(tab) => this.setState({ currentTab: tab })}
             >
-              <span class="pure-menu-heading">NFD {host.version}</span>
+              <span class="pure-menu-heading">NFD {version}</span>
             </NavMenu>
           </div>
         </div>
@@ -117,9 +105,7 @@ export class App extends Component<Props, State> {
             </If>
           </section>
         </div>
-        <footer class="pure-g">
-          <div class="pure-u-1">NFD status page, powered by NDNts</div>
-        </footer>
+        <Footer uri={this.props.requests.uri} interval={this.props.requests.interval}/>
       </Fragment>
     );
   }

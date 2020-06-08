@@ -18,6 +18,7 @@ export function FaceTable({ selected }: Props) {
           <th>id</th>
           <th>title</th>
           <th>routes</th>
+          <th>traffic</th>
         </tr>
       </thead>
       <tbody>

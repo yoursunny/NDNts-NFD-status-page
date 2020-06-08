@@ -4,6 +4,7 @@ import { useContext } from "preact/hooks";
 
 import { NfdStatusContext } from "../../context";
 import { If } from "../common/if";
+import { NameFilter, NameFiltered } from "../common/name-filtered";
 import { RibDetail } from "./detail";
 import { RibTable } from "./table";
 
@@ -18,7 +19,11 @@ export function RibView({ selected }: Props) {
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-9-24">
         <h1>{status.routes.length} routes in {status.rib.length} RIB entries</h1>
-        <RibTable selected={selected}/>
+        <NameFiltered>
+          {(filter: NameFilter) => (
+            <RibTable selected={selected} filter={filter}/>
+          )}
+        </NameFiltered>
       </div>
       <div class="pure-u-1 pure-u-lg-1-24"/>
       <div class="pure-u-1 pure-u-lg-14-24">

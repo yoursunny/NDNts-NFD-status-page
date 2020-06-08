@@ -23,7 +23,7 @@ export interface PacketCounters {
 
 export interface Host {
   version: string;
-  startTime: Date;
+  startTime: number;
   cnt: HostCounters & PacketCounters;
 }
 
@@ -57,10 +57,12 @@ export interface StrategyChoice {
 }
 
 export interface NfdStatus {
+  readonly timestamp: number;
   readonly host: Host;
 
   readonly faces: Face[];
   getFace: (id: number) => Face|undefined;
+  diffFaceCounters: (face: Face, prev?: NfdStatus) => PacketCounters;
 
   readonly rib: RibEntry[];
   readonly routes: Route[];

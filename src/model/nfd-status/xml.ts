@@ -11,6 +11,9 @@ export function parseNfdStatusXml(doc: XMLDocument): NfdStatus {
 
 class NfdStatusXml extends NfdStatusBase implements NfdStatus {
   public parse(doc: XMLDocument): void {
+    if (doc.documentElement.namespaceURI !== "ndn:/localhost/nfd/status/1") {
+      throw new Error("invalid XML");
+    }
     for (const ele of iterElements(doc.documentElement)) {
       switch (ele.localName) {
         case "generalStatus":
@@ -35,7 +38,8 @@ class NfdStatusXml extends NfdStatusBase implements NfdStatus {
   private parseGeneralStatus(gsEle: Element): void {
     assignElements(this.host, gsEle, {
       version: ["version", "str"],
-      startTime: (text: string) => this.host.startTime = new Date(Date.parse(`${text}Z`)),
+      startTime: (text: string) => this.host.startTime = Date.parse(`${text}Z`),
+      currentTime: (text: string) => this.timestamp = Date.parse(`${text}Z`),
     });
     assignElements(this.host.cnt, gsEle, {
       nNameTreeEntries: ["nameTreeEntry", "int"],
