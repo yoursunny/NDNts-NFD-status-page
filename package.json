@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "node ./bundler.js build src/index.html --no-autoinstall",
+    "lint": "xo --fix",
+    "start": "node ./bundler.js src/index.html --no-autoinstall",
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ndn/naming-convention1": "https://ndnts-nightly.ndn.today/naming-convention1.tgz",
+    "@ndn/packet": "https://ndnts-nightly.ndn.today/packet.tgz",
+    "@ndn/tlv": "https://ndnts-nightly.ndn.today/tlv.tgz",
+    "@types/classnames": "^2.2.10",
+    "@types/qs": "^6.9.3",
+    "classnames": "^2.2.6",
+    "mnemonist": "^0.36.1",
+    "preact": "^10.4.4",
+    "pretty-ms": "^7.0.0",
+    "purecss": "^2.0.3",
+    "qs": "^6.9.4",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@kenpb/parcel-plugin-ifdef": "^1.1.0",
+    "eslint-config-xo-preact": "^1.0.0",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-simple-import-sort": "^5.0.3",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.9.5",
+    "xo": "^0.32.0"
+  },
+  "browserslist": [
+    "since 2017-06"
+  ]
+}

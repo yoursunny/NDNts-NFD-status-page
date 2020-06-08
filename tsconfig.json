@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "module": "ES2015",
+    "moduleResolution": "Node",
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2019",
+    "types": []
+  },
+  "exclude": [
+    "**/node_modules"
+  ]
+}
