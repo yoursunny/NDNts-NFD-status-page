@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "build": "node ./bundler.js build src/index.html --no-autoinstall --public-url ./",
+    "build": "node ./mk/bundler.js build src/index.html --no-autoinstall --public-url ./",
     "lint": "xo --fix",
-    "start": "node ./bundler.js src/index.html --no-autoinstall",
+    "lint-ci": "xo",
+    "start": "node ./mk/bundler.js src/index.html --no-autoinstall",
     "tsc": "tsc --noEmit"
   },
   "dependencies": {

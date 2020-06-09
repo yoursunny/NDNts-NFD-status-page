@@ -1,0 +1,21 @@
+---
+dist: bionic
+
+language: node_js
+node_js: 14
+
+cache:
+  npm: false
+
+script:
+  - npm run lint-ci
+  - npm run tsc
+  - npm run build
+  - bash mk/build-website.sh
+
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    github_token: $GITHUB_TOKEN
+    local_dir: public/
+    fqdn: nfd-status-page.ndn.today
