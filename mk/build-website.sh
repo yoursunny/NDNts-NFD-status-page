@@ -10,5 +10,7 @@ tar cJf public/$TARBALL -C dist .
 cp dist/* public/
 mv public/index.html public/demo.html
 
+echo '<meta http-equiv="refresh" content="0;URL=https://yoursunny.com/p/NDNts/NFD-status-page/">' >public/index.html
+echo '<meta http-equiv="refresh" content="0;URL='$TARBALL'">' >public/tarball.html
+echo $TARBALL >public/tarball.txt
 cp src/favicon.ico src/style.css public/
-sed 's/TARBALL/'$TARBALL'/' mk/website-index.html > public/index.html

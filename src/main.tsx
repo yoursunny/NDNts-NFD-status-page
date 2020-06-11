@@ -14,7 +14,12 @@ window.addEventListener("load", () => {
   if (!intervalMs || intervalMs < 6000) {
     intervalMs = 6000;
   }
-  const requests = new NfdStatusRequests(uri.toString(), intervalMs, Math.ceil(30000 / intervalMs));
+
+  const requests = new NfdStatusRequests({
+    uri: uri.toString(),
+    interval: intervalMs,
+    history: Math.ceil(30000 / intervalMs),
+  });
   requests.start();
   render(<App requests={requests}/>, document.body);
 });

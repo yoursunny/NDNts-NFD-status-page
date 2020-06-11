@@ -7,13 +7,13 @@ interface Props {
   requests: NfdStatusRequests;
 }
 
-export function Footer({ requests: { uri, interval } }: Props) {
+export function Footer({ requests: { host, interval } }: Props) {
   return (
     <footer class="pure-g">
       <div class="pure-u-1">
         NFD status page,
         {" "}
-        {uri === "/" ? location.hostname : uri},
+        {host},
         refreshing every {prettyMilliseconds(interval)}
       </div>
     </footer>

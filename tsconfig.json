@@ -8,9 +8,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "ES2019",
-    "types": [
-      "node"
-    ]
+    "types": []
   },
   "exclude": [
     "**/node_modules"
