@@ -2,6 +2,8 @@ import { Component as NameComponent, Name } from "@ndn/packet";
 import { get as getCookie, set as setCookie } from "js-cookie";
 import { Component, Fragment, h, JSX } from "preact";
 
+import { nameIncludes } from "../../model/nameutil";
+
 export type NameFilter = (name: Name) => boolean;
 
 interface Props {
@@ -85,13 +87,4 @@ export class NameFiltered extends Component<Props, State> {
       </Fragment>
     );
   }
-}
-
-function nameIncludes(name: Name, needle: NameComponent): boolean {
-  for (const comp of name.comps) {
-    if (needle.equals(comp)) {
-      return true;
-    }
-  }
-  return false;
 }

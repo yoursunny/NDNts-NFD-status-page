@@ -4,6 +4,7 @@ import { fromHex, toHex } from "@ndn/tlv";
 import DefaultMap from "mnemonist/default-map";
 import MultiMap from "mnemonist/multi-map";
 
+import { nameIncludes } from "../nameutil";
 import type { Face, Host, NfdStatus, PacketCounters, RibEntry, Route, StrategyChoice } from "./types";
 
 export class NfdStatusBase implements NfdStatus {
@@ -155,7 +156,7 @@ const LOCALHOST_NFD = new Name("/localhost/nfd");
 const PING_SUFFIX = Component.from("ping");
 const NLSR_INFO_SUFFIX_1 = Component.from("INFO");
 const NLSR_INFO_SUFFIX_2 = Component.from("nlsr");
-const NLSR_INFO_SUFFIX_4 = Component.from("%C1.Router");
+const NLSR_ROUTER_COMP = Component.from("%C1.Router");
 const LOCALHOP_AUTOCONF_HUB = new Name("/localhop/ndn-autoconf/hub");
 
 function describeFaceRoute({ prefix }: Route, face: Face): void {
@@ -169,7 +170,7 @@ function describeFaceRoute({ prefix }: Route, face: Face): void {
     case face.scheme === "unix" &&
          prefix.get(-1)?.equals(NLSR_INFO_SUFFIX_1) &&
          prefix.get(-2)?.equals(NLSR_INFO_SUFFIX_2) &&
-         prefix.get(-4)?.equals(NLSR_INFO_SUFFIX_4):
+         nameIncludes(prefix, NLSR_ROUTER_COMP):
       face.title = `NLSR ${AltUri.ofName(prefix.getPrefix(-2))}`;
       break;
     case face.scheme === "unix" && LOCALHOP_AUTOCONF_HUB.equals(prefix):

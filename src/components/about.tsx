@@ -5,11 +5,11 @@ export function About() {
   const version = process.env.GIT_COMMIT;
   return (
     <Fragment>
-      <h1>About NFD Status Page</h1>
+      <h1>About Better NFD Status Page</h1>
       <ul style="line-height:2em;">
         <li><a href="https://yoursunny.com/p/NDNts/NFD-status-page/">Project Homepage</a></li>
         <li><a href="https://github.com/yoursunny/NDNts-NFD-status-page">GitHub repository</a></li>
-        <li>NFD Status Page version {version}</li>
+        <li>Better NFD Status Page version {version}</li>
         <li>Powered by <a href="https://yoursunny.com/p/NDNts/">NDNts</a> and modern web technologies</li>
       </ul>
     </Fragment>
