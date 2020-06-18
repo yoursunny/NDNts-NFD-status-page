@@ -11,7 +11,7 @@ export function Footer({ requests: { host, interval } }: Props) {
   return (
     <footer class="pure-g">
       <div class="pure-u-1">
-        Better NFD status page,
+        NDNts NFD status page,
         {" "}
         {host},
         refreshing every {prettyMilliseconds(interval)}

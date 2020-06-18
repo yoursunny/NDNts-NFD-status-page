@@ -20,6 +20,7 @@ window.addEventListener("load", () => {
     interval: intervalMs,
     history: Math.ceil(30000 / intervalMs),
   });
+  document.title = `NFD Status: ${requests.host}`;
   requests.start();
   render(<App requests={requests}/>, document.body);
 });
