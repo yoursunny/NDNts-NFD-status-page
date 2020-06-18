@@ -27,12 +27,24 @@ export interface Host {
   cnt: HostCounters & PacketCounters;
 }
 
+export const FaceFlags = {
+  local: true,
+  "on-demand": true,
+  permanent: true,
+  "multi-access": true,
+  "congestion-marking": true,
+};
+
+export type FaceFlag = keyof typeof FaceFlags;
+
 export interface Face {
   id: number;
   scheme: string;
   title: string;
   local: string;
   remote: string;
+  mtu: number;
+  flags: FaceFlag[];
   cnt: PacketCounters;
 }
 

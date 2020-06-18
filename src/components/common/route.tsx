@@ -19,10 +19,10 @@ export class RouteDetail extends Component<Props> {
         <If show={showFlags}>
           <td>
             <If show={route.childInherit}>
-              <i title="child-inherit" class="route-flag route-flag-inherit">I</i>
+              <i title="child-inherit" class="flag" style="background:#39cccc;">I</i>
             </If>
             <If show={route.capture}>
-              <i title="capture" class="route-flag route-flag-capture">C</i>
+              <i title="capture" class="flag" style="background:#f012be;">C</i>
             </If>
           </td>
         </If>

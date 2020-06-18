@@ -1,7 +1,7 @@
 import { AltUri } from "@ndn/packet";
 
 import { NfdStatusBase } from "./base";
-import type { Face, NfdStatus, PacketCounters, Route, StrategyChoice } from "./types";
+import { Face, FaceFlags, NfdStatus, PacketCounters, Route, StrategyChoice } from "./types";
 
 export function parseNfdStatusXml(doc: XMLDocument): NfdStatus {
   const result = new NfdStatusXml();
@@ -55,11 +55,16 @@ class NfdStatusXml extends NfdStatusBase implements NfdStatus {
 
   private parseFaces(facesEle: Element): void {
     for (const faceEle of iterElements(facesEle)) {
-      const face: Face = { cnt: {} } as any;
+      const face: Face = { flags: [], cnt: {} } as any;
       assignElements(face, faceEle, {
         faceId: ["id", "int"],
         localUri: ["local", "str"],
         remoteUri: ["remote", "str"],
+        mtu: ["mtu", "int"],
+        faceScope: collectFlag(face.flags, FaceFlags),
+        facePersistency: collectFlag(face.flags, FaceFlags),
+        linkType: collectFlag(face.flags, FaceFlags),
+        congestion: () => face.flags.push("congestion-marking"),
         packetCounters: parsePacketCounters(face.cnt),
       });
       this.addFace(face);
@@ -157,6 +162,14 @@ function assignElements<T extends Record<string, any>>(
     }
   }
   return target;
+}
+
+function collectFlag(target: any[], accepts: Record<string, any>): (text: string) => void {
+  return (text: string) => {
+    if (accepts[text]) {
+      target.push(text);
+    }
+  };
 }
 
 function parsePacketCounters(target: PacketCounters): (text: string, packetCntEle: Node) => void {
