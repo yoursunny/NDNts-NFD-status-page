@@ -1,4 +1,5 @@
 import { Version } from "@ndn/naming-convention1";
+import { AltUri as AltUri2 } from "@ndn/naming-convention2";
 import { AltUri, Component, Name } from "@ndn/packet";
 import { fromHex, toHex } from "@ndn/tlv";
 import DefaultMap from "mnemonist/default-map";
@@ -182,7 +183,7 @@ function describeFaceRoute({ prefix }: Route, face: Face): void {
 const LOCALHOST_NFD_STRATEGY = new Name("/localhost/nfd/strategy");
 
 function describeStrategy(sc: StrategyChoice): void {
-  const name = AltUri.parseName(sc.strategy);
+  const name = AltUri2.parseName(sc.strategy);
   if (LOCALHOST_NFD_STRATEGY.isPrefixOf(name) &&
       name.length >= 5 && name.get(4)!.is(Version)) {
     sc.strategy = `${AltUri.ofComponent(name.get(3)!)} v${name.get(4)!.as(Version)} ${AltUri.ofName(name.slice(5)).slice(1)}`;

@@ -1,4 +1,4 @@
-import { AltUri } from "@ndn/packet";
+import { AltUri } from "@ndn/naming-convention2";
 
 import { NfdStatusBase } from "./base";
 import { Face, FaceFlags, NfdStatus, PacketCounters, Route, StrategyChoice } from "./types";

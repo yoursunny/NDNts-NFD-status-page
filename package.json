@@ -9,13 +9,14 @@
   },
   "dependencies": {
     "@ndn/naming-convention1": "https://ndnts-nightly.ndn.today/naming-convention1.tgz",
+    "@ndn/naming-convention2": "https://ndnts-nightly.ndn.today/naming-convention2.tgz",
     "@ndn/packet": "https://ndnts-nightly.ndn.today/packet.tgz",
     "@ndn/tlv": "https://ndnts-nightly.ndn.today/tlv.tgz",
     "classnames": "^2.2.6",
     "hashquery": "^1.0.0",
     "js-cookie": "^2.2.1",
-    "mnemonist": "^0.36.1",
-    "preact": "^10.4.4",
+    "mnemonist": "^0.38.0",
+    "preact": "^10.4.5",
     "pretty-ms": "^7.0.0",
     "purecss": "^2.0.3",
     "qs": "^6.9.4",
@@ -25,15 +26,15 @@
     "@kenpb/parcel-plugin-ifdef": "^1.1.2",
     "@types/classnames": "^2.2.10",
     "@types/js-cookie": "^2.2.6",
-    "@types/node": "^14.0.13",
+    "@types/node": "^14.0.14",
     "@types/qs": "^6.9.3",
     "eslint-config-xo-preact": "^1.0.0",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-simple-import-sort": "^5.0.3",
     "execa": "^4.0.2",
     "parcel-bundler": "^1.12.4",
-    "typescript": "^3.9.5",
-    "xo": "^0.32.0"
+    "typescript": "^3.9.6",
+    "xo": "^0.32.1"
   },
   "browserslist": [
     "since 2017-06"

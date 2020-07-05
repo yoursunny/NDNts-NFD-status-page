@@ -15,7 +15,9 @@ script:
 
 deploy:
   - provider: pages
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
+    edge: true
+    token: $GITHUB_TOKEN
+    keep_history: false
+    commit_message: $TRAVIS_COMMIT $TRAVIS_BUILD_WEB_URL
     local_dir: public/
     fqdn: nfd-status-page.ndn.today
