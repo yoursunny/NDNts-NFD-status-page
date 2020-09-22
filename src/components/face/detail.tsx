@@ -71,7 +71,12 @@ function FaceFlags({ flags }: { flags: FaceFlag[] }) {
 function FaceRoutes({ routes }: { routes: Route[] }) {
   const gotoRib = useContext(GotoRibContext);
   return (
-    <table class="pure-table pure-table-bordered">
+    <table class="pure-table pure-table-bordered" style="table-layout:fixed; word-break:break-all;">
+      <colgroup>
+        <col style="width:60%;"/>
+        <col style="width:20%;"/>
+        <col style="width:20%;"/>
+      </colgroup>
       <thead>
         <tr>
           <th>name</th>

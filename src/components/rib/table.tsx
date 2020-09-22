@@ -16,7 +16,11 @@ export function RibTable({ selected, filter }: Props) {
   const { rib } = useContext(NfdStatusContext);
   const gotoRib = useContext(GotoRibContext);
   return (
-    <table class="pure-table pure-table-bordered">
+    <table class="pure-table pure-table-bordered" style="table-layout:fixed; word-break:break-all;">
+      <colgroup>
+        <col style="width:80%;"/>
+        <col style="width:20%;"/>
+      </colgroup>
       <thead>
         <tr>
           <th>prefix</th>
