@@ -15,7 +15,7 @@ export function FaceRow({ face, highlight, onClick }: Props) {
   const status = useContext(NfdStatusContext);
   const routes = status.getFaceRoutes(face.id);
   const traffic = status.diffFaceCounters(face, useContext(OldNfdStatusContext));
-  // eslint-disable-next-line unicorn/no-reduce, @typescript-eslint/restrict-plus-operands
+  // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   const trafficSum: number = Object.values(traffic).reduce((sum, v) => sum + v, 0);
   return (
     <tr class={classNames({ "pure-table-odd": highlight })}>
