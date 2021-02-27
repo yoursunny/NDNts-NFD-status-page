@@ -1,0 +1,30 @@
+name: build
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: npm install
+      - name: check code style
+        run: |
+          npm run lint
+          [[ $(git status --porcelain | tee >(cat 1>&2) | wc -l) -eq 0 ]]
+      - run: npm run typecheck
+      - run: npm run build
+      - name: prepare demo site
+        run: bash mk/build-website.sh
+      - uses: crazy-max/ghaction-github-pages@v2
+        with:
+          build_dir: ./public/
+          commit_message: ${{ github.sha }} ${{ github.run_id }}-${{ github.run_number }}
+          fqdn: nfd-status-page.ndn.today
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

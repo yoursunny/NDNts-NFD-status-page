@@ -3,10 +3,9 @@
   "scripts": {
     "build": "node ./mk/bundler.js build src/index.html --no-autoinstall --public-url ./",
     "lint": "xo --fix",
-    "lint-ci": "xo",
     "pnpm-install": "pnpm install --shamefully-hoist",
     "start": "node ./mk/bundler.js src/index.html --no-autoinstall",
-    "tsc": "tsc --noEmit"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ndn/naming-convention1": "https://ndnts-nightly.ndn.today/naming-convention1.tgz",
