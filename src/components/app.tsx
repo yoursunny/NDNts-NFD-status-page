@@ -1,6 +1,6 @@
 import type { Name } from "@ndn/packet";
-// @ts-expect-error
-import * as hashquery from "hashquery";
+// @ts-expect-error typing unavailable
+import { get as hashGet, set as hashSet } from "hashquery";
 import { Component, Fragment, h } from "preact";
 
 import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext, OldNfdStatusContext } from "../context";
@@ -30,10 +30,10 @@ interface State {
 export class App extends Component<Props, State> {
   constructor() {
     super();
-    this.setState({ currentTab: hashquery.get("tab") || "Overview" });
+    this.setState({ currentTab: hashGet("tab") || "Overview" });
   }
 
-  public componentDidMount() {
+  public override componentDidMount() {
     this.props.requests.onFetched = (status) => this.setState({ status });
   }
 
@@ -57,8 +57,8 @@ export class App extends Component<Props, State> {
     });
   };
 
-  public getSnapshotBeforeUpdate() {
-    hashquery.set("tab", this.state.currentTab);
+  public override getSnapshotBeforeUpdate() {
+    hashSet("tab", this.state.currentTab);
   }
 
   public render() {

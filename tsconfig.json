@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
     "jsx": "react",
     "jsxFactory": "h",
-    "module": "ES2015",
+    "module": "ES2022",
     "moduleResolution": "Node",
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2019",
+    "target": "ES2021",
     "types": []
   },
   "exclude": [

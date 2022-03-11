@@ -24,7 +24,7 @@ const NLSR_OPERATOR_COMP = NameComponent.from("%C1.Operator");
 const KEY_COMP = NameComponent.from("KEY");
 
 export class NameFiltered extends Component<Props, State> {
-  public componentDidMount() {
+  public override componentDidMount() {
     let toggles: Toggles;
     try {
       const { hideNlsr, hideKey } = JSON.parse(getCookie("NameFiltered")!);
@@ -47,19 +47,17 @@ export class NameFiltered extends Component<Props, State> {
     };
   }
 
-  private handleChange = (toggle: keyof Toggles): () => void => {
-    return () => {
-      this.setState((prev) => {
-        const toggles = {
-          ...prev,
-          [toggle]: !prev[toggle],
-        };
-        return {
-          [toggle]: !prev[toggle],
-          filter: this.makeFilter(toggles),
-        };
-      });
-    };
+  private handleChange = (toggle: keyof Toggles) => () => {
+    this.setState((prev) => {
+      const toggles = {
+        ...prev,
+        [toggle]: !prev[toggle],
+      };
+      return {
+        [toggle]: !prev[toggle],
+        filter: this.makeFilter(toggles),
+      };
+    });
   };
 
   public render() {

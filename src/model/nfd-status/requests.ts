@@ -24,11 +24,11 @@ export class NfdStatusRequests {
   private timer = 0;
   private recents: NfdStatus[] = [];
 
-  public get latest(): NfdStatus|undefined {
+  public get latest(): NfdStatus | undefined {
     return this.recents[0];
   }
 
-  public get oldest(): NfdStatus|undefined {
+  public get oldest(): NfdStatus | undefined {
     return this.recents[this.recents.length - 1];
   }
 

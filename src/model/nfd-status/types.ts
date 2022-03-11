@@ -73,12 +73,12 @@ export interface NfdStatus {
   readonly host: Host;
 
   readonly faces: Face[];
-  getFace: (id: number) => Face|undefined;
+  getFace: (id: number) => Face | undefined;
   diffFaceCounters: (face: Face, prev?: NfdStatus) => PacketCounters;
 
   readonly rib: RibEntry[];
   readonly routes: Route[];
-  getRibEntry: (name: Name) => RibEntry|undefined;
+  getRibEntry: (name: Name) => RibEntry | undefined;
   getFaceRoutes: (id: number) => Route[];
 
   readonly strategies: StrategyChoice[];

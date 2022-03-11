@@ -132,7 +132,7 @@ function* iterElements({ childNodes }: Node): Iterable<Element> {
 
 function assignElements<T extends Record<string, any>>(
     target: T, source: Node,
-    schema: Record<string, [keyof T, "int"|"str"|"name"|"true"] | ((text: string, node: Element) => void)>,
+    schema: Record<string, [keyof T, "int" | "str" | "name" | "true"] | ((text: string, node: Element) => void)>,
 ): T {
   for (const ele of iterElements(source)) {
     const instruction = schema[ele.localName];

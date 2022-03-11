@@ -1,7 +1,7 @@
-/.cache
+*.log
+/.parcel-cache
 /.vscode
 /dist
-/package-lock.json
+/pnpm-lock.yaml
 /public
 node_modules
-pnpm-lock.yaml

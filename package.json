@@ -1,38 +1,37 @@
 {
   "private": true,
   "scripts": {
-    "build": "node ./mk/bundler.js build src/index.html --no-autoinstall --public-url ./",
+    "build": "node ./mk/bundler.mjs build src/index.html --no-autoinstall --public-url ./",
     "lint": "xo --fix",
-    "pnpm-install": "pnpm install --shamefully-hoist",
-    "start": "node ./mk/bundler.js src/index.html --no-autoinstall",
+    "start": "node ./mk/bundler.mjs src/index.html --no-autoinstall --port 3333",
     "typecheck": "tsc --noEmit"
   },
+  "alias": {
+    "preact": "./node_modules/preact/dist/preact.module.js",
+    "preact/hooks": "./node_modules/preact/hooks/dist/hooks.module.js"
+  },
+  "packageManager": "pnpm@6.32.3",
   "dependencies": {
     "@ndn/naming-convention1": "https://ndnts-nightly.ndn.today/naming-convention1.tgz",
     "@ndn/naming-convention2": "https://ndnts-nightly.ndn.today/naming-convention2.tgz",
     "@ndn/packet": "https://ndnts-nightly.ndn.today/packet.tgz",
     "@ndn/tlv": "https://ndnts-nightly.ndn.today/tlv.tgz",
-    "classnames": "^2.2.6",
+    "classnames": "^2.3.1",
     "hashquery": "^1.0.0",
-    "js-cookie": "^2.2.1",
-    "mnemonist": "^0.38.1",
-    "preact": "^10.5.12",
+    "js-cookie": "^3.0.1",
+    "mnemonist": "^0.39.0",
+    "preact": "^10.6.6",
     "pretty-ms": "^7.0.1",
-    "purecss": "^2.0.5",
-    "qs": "^6.9.6",
-    "tslib": "^2.1.0"
+    "purecss": "^2.0.6",
+    "qs": "^6.10.3",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/classnames": "^2.2.11",
-    "@types/js-cookie": "^2.2.6",
-    "@types/node": "^14.14.31",
-    "@types/qs": "^6.9.5",
-    "@yoursunny/xo-config": "^0.38.0",
-    "execa": "^5.0.0",
-    "parcel-bundler": "^1.12.4",
-    "typescript": "^4.2.2"
-  },
-  "browserslist": [
-    "since 2017-06"
-  ]
+    "@types/js-cookie": "^3.0.1",
+    "@types/qs": "^6.9.7",
+    "@yoursunny/xo-config": "^0.48.0",
+    "execa": "^6.1.0",
+    "parcel": "^2.3.2",
+    "typescript": "~4.6.2"
+  }
 }

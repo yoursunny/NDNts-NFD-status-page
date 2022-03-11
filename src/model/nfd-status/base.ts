@@ -16,7 +16,7 @@ export class NfdStatusBase implements NfdStatus {
 
   private readonly faceById = new Map<number, Face>();
 
-  public getFace(id: number): Face|undefined {
+  public getFace(id: number): Face | undefined {
     return this.faceById.get(id);
   }
 
@@ -40,7 +40,7 @@ export class NfdStatusBase implements NfdStatus {
   private readonly ribEntryByName = new DefaultMap<string, RibEntry>(NfdStatusBase.makeRibEntry);
   private readonly routesByFace = new MultiMap<number, Route>();
 
-  public getRibEntry(name: Name): RibEntry|undefined {
+  public getRibEntry(name: Name): RibEntry | undefined {
     const nameHex = toHex(name.value);
     return this.ribEntryByName.peek(nameHex);
   }
@@ -63,7 +63,7 @@ export class NfdStatusBase implements NfdStatus {
     }
   }
 
-  private static makeRibEntry(nameHex: string|undefined): RibEntry {
+  private static makeRibEntry(nameHex: string | undefined): RibEntry {
     const name = new Name(fromHex(nameHex!));
     return {
       prefix: name,
@@ -84,7 +84,7 @@ export class NfdStatusBase implements NfdStatus {
   }
 }
 
-function diffPacketCounters(current: PacketCounters, prev: PacketCounters|undefined, duration: number): PacketCounters {
+function diffPacketCounters(current: PacketCounters, prev: PacketCounters | undefined, duration: number): PacketCounters {
   const result = { ...current };
   if (prev && duration > 0) {
     for (const [key, value] of Object.entries(current) as Iterable<[keyof PacketCounters, number]>) {
