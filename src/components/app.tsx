@@ -85,7 +85,7 @@ export class App extends Component<Props, State> {
     const { currentTab: tab } = this.state;
     const version = this.props.requests.latest!.host.version;
     return (
-      <Fragment>
+      <>
         <div class="pure-g">
           <div class="pure-u-1">
             <NavMenu
@@ -117,7 +117,7 @@ export class App extends Component<Props, State> {
           </section>
         </div>
         <Footer requests={this.props.requests}/>
-      </Fragment>
+      </>
     );
   }
 }

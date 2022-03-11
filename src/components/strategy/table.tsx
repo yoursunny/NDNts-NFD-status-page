@@ -1,5 +1,5 @@
-import { AltUri } from "@ndn/packet";
-import { toHex } from "@ndn/tlv";
+import { AltUri } from "@ndn/naming-convention2";
+import { toHex } from "@ndn/util";
 import { h } from "preact";
 import { useContext } from "preact/hooks";
 

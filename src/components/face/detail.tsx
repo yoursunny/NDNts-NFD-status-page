@@ -1,5 +1,5 @@
-import { AltUri } from "@ndn/packet";
-import { toHex } from "@ndn/tlv";
+import { AltUri } from "@ndn/naming-convention2";
+import { toHex } from "@ndn/util";
 import { Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 
@@ -26,7 +26,7 @@ export function FaceDetail({ face }: Props) {
   const routes = status.getFaceRoutes(face.id);
   const traffic = status.diffFaceCounters(face, useContext(OldNfdStatusContext));
   return (
-    <Fragment>
+    <>
       <h2>Face {face.id}</h2>
       <table class="pure-table pure-table-bordered">
         <tr><td>local</td><td colSpan={2}>{face.local}</td></tr>
@@ -45,7 +45,7 @@ export function FaceDetail({ face }: Props) {
         <h3>Routes</h3>
         <FaceRoutes routes={routes}/>
       </If>
-    </Fragment>
+    </>
   );
 }
 
@@ -59,12 +59,12 @@ const flagDisplay: Record<FaceFlag, [string, string]> = {
 
 function FaceFlags({ flags }: { flags: FaceFlag[] }) {
   return (
-    <Fragment>
+    <>
       {flags.map((flag) => {
         const [label, color] = flagDisplay[flag];
         return <i key={flag} title={flag} class="flag" style={`background:#${color};`}>{label}</i>;
       })}
-    </Fragment>
+    </>
   );
 }
 

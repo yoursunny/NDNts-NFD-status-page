@@ -8,13 +8,13 @@ import { StrategyTable } from "./table";
 export function StrategyView() {
   const { strategies } = useContext(NfdStatusContext);
   return (
-    <Fragment>
+    <>
       <h1>{strategies.length} strategy choices</h1>
       <NameFiltered>
         {(filter) => (
           <StrategyTable filter={filter}/>
         )}
       </NameFiltered>
-    </Fragment>
+    </>
   );
 }

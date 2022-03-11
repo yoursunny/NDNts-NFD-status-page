@@ -1,4 +1,4 @@
-import { AltUri } from "@ndn/packet";
+import { AltUri } from "@ndn/naming-convention2";
 import classNames from "classnames";
 import { h } from "preact";
 

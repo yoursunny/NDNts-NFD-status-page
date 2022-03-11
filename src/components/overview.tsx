@@ -12,7 +12,7 @@ export function Overview() {
   const gotoRib = useContext(GotoRibContext);
   const gotoStrategies = useContext(GotoStrategiesContext);
   return (
-    <Fragment>
+    <>
       <h1>NFD {host.version}</h1>
       <table class="pure-table pure-table-bordered">
         <tr>
@@ -48,6 +48,6 @@ export function Overview() {
           <td>{defaultStrategy}</td>
         </tr>
       </table>
-    </Fragment>
+    </>
   );
 }

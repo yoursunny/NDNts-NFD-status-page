@@ -65,7 +65,7 @@ export class NameFiltered extends Component<Props, State> {
       return undefined;
     }
     return (
-      <Fragment>
+      <>
         <form class="pure-form">
           <fieldset>
             <label>
@@ -82,7 +82,7 @@ export class NameFiltered extends Component<Props, State> {
           </fieldset>
         </form>
         {this.props.children(this.state.filter)}
-      </Fragment>
+      </>
     );
   }
 }

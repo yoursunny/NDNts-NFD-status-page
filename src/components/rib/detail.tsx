@@ -1,4 +1,4 @@
-import { AltUri } from "@ndn/packet";
+import { AltUri } from "@ndn/naming-convention2";
 import { Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 
@@ -15,7 +15,7 @@ export function RibDetail({ entry }: Props) {
   const gotoFace = useContext(GotoFaceContext);
   const { prefix, routes } = entry;
   return (
-    <Fragment>
+    <>
       <h2>RIB entry {AltUri.ofName(prefix)}</h2>
       <table class="pure-table pure-table-bordered">
         <thead>
@@ -37,7 +37,7 @@ export function RibDetail({ entry }: Props) {
           ))}
         </tbody>
       </table>
-    </Fragment>
+    </>
   );
 }
 

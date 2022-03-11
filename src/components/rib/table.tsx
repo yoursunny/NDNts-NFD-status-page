@@ -1,5 +1,5 @@
 import type { Name } from "@ndn/packet";
-import { toHex } from "@ndn/tlv";
+import { toHex } from "@ndn/util";
 import { h } from "preact";
 import { useContext } from "preact/hooks";
 

@@ -10,7 +10,7 @@ interface Props {
 
 export function Loading({ requests }: Props) {
   return (
-    <Fragment>
+    <>
       <div class="pure-g">
         <div class="pure-u-1">
           <NavMenu tabs={[]}>
@@ -24,6 +24,6 @@ export function Loading({ requests }: Props) {
         </section>
       </div>
       <Footer requests={requests}/>
-    </Fragment>
+    </>
   );
 }
