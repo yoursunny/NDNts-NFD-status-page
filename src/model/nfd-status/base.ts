@@ -2,6 +2,7 @@ import { AltUri, Version } from "@ndn/naming-convention2";
 import { Component, Name, NameMap } from "@ndn/packet";
 import MultiMap from "mnemonist/multi-map.js";
 
+import { describeIpAddr } from "../describe-ip";
 import { nameIncludes } from "../nameutil";
 import type { Face, Host, NfdStatus, PacketCounters, RibEntry, Route, StrategyChoice } from "./types";
 
@@ -97,7 +98,7 @@ function prettyIp(s: string): string {
   if (s.startsWith("[") && s.endsWith("]")) {
     s = s.slice(1, -1);
   }
-  return s;
+  return describeIpAddr(s);
 }
 
 function describeFace(face: Face): void {

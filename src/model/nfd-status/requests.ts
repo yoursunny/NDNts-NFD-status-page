@@ -40,8 +40,8 @@ export class NfdStatusRequests {
     clearTimeout(this.timer);
   }
 
-  private update = () => {
-    (async () => {
+  private update = async () => {
+    try {
       if (document.hidden) {
         await new Promise((r) => document.addEventListener("visibilitychange", r));
       }
@@ -54,11 +54,11 @@ export class NfdStatusRequests {
       this.recents.unshift(status);
       this.recents.splice(this.history, Infinity);
       this.onFetched?.(status);
-    })()
-      .catch(console.warn)
-      .finally(() => {
-        this.timer = setTimeout(this.update, this.interval);
-      });
+    } catch (err: unknown) {
+      console.warn(err);
+    } finally {
+      this.timer = setTimeout(this.update, this.interval + this.interval * 0.1 * Math.random());
+    }
   };
 }
 export interface NfdStatusRequests extends Options {}
