@@ -1,7 +1,5 @@
 import { AltUri, Version } from "@ndn/naming-convention2";
-import { Component, Name } from "@ndn/packet";
-import { fromHex, toHex } from "@ndn/util";
-import DefaultMap from "mnemonist/default-map.js";
+import { Component, Name, NameMap } from "@ndn/packet";
 import MultiMap from "mnemonist/multi-map.js";
 
 import { nameIncludes } from "../nameutil";
@@ -31,17 +29,16 @@ export class NfdStatusBase implements NfdStatus {
   }
 
   public get rib(): RibEntry[] {
-    return Array.from(this.ribEntryByName.values());
+    return Array.from(this.ribEntryByName, ([, entry]) => entry);
   }
 
   public readonly routes: Route[] = [];
 
-  private readonly ribEntryByName = new DefaultMap<string, RibEntry>(NfdStatusBase.makeRibEntry);
+  private readonly ribEntryByName = new NameMap<RibEntry>();
   private readonly routesByFace = new MultiMap<number, Route>();
 
   public getRibEntry(name: Name): RibEntry | undefined {
-    const nameHex = toHex(name.value);
-    return this.ribEntryByName.peek(nameHex);
+    return this.ribEntryByName.get(name);
   }
 
   public getFaceRoutes(id: number): Route[] {
@@ -49,9 +46,16 @@ export class NfdStatusBase implements NfdStatus {
   }
 
   protected addRoute(route: Route): void {
-    const nameHex = toHex(route.prefix.value);
-    const ribEntry = this.ribEntryByName.get(nameHex);
-    ribEntry.capture = ribEntry.capture || route.capture;
+    let ribEntry = this.ribEntryByName.get(route.prefix);
+    if (!ribEntry) {
+      ribEntry = {
+        prefix: route.prefix,
+        capture: false,
+        routes: [],
+      };
+      this.ribEntryByName.set(route.prefix, ribEntry);
+    }
+    ribEntry.capture ||= route.capture;
     ribEntry.routes.push(route);
     this.routes.push(route);
     this.routesByFace.set(route.nexthop, route);
@@ -60,15 +64,6 @@ export class NfdStatusBase implements NfdStatus {
     if (face) {
       describeFaceRoute(route, face);
     }
-  }
-
-  private static makeRibEntry(nameHex: string | undefined): RibEntry {
-    const name = new Name(fromHex(nameHex!));
-    return {
-      prefix: name,
-      capture: false,
-      routes: [],
-    };
   }
 
   public readonly strategies: StrategyChoice[] = [];

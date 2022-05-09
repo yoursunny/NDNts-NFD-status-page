@@ -1,5 +1,4 @@
 import { AltUri } from "@ndn/naming-convention2";
-import { toHex } from "@ndn/util";
 import { Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 
@@ -87,7 +86,7 @@ function FaceRoutes({ routes }: { routes: Route[] }) {
       <tbody>
         {routes.map((route) => (
           <RouteDetail
-            key={`${toHex(route.prefix.value)} ${route.origin}`}
+            key={`${route.prefix.valueHex} ${route.origin}`}
             route={route} showFlags={false}
           >
             <td onClick={() => gotoRib(route.prefix)}>

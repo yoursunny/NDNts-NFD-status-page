@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "node ./mk/bundler.mjs build src/index.html --no-autoinstall --public-url ./",
-    "lint": "xo --fix",
+    "lint": "xo-yoursunny --fix",
     "start": "node ./mk/bundler.mjs src/index.html --no-autoinstall --port 3333",
     "typecheck": "tsc --noEmit"
   },
@@ -10,27 +10,26 @@
     "preact": "./node_modules/preact/dist/preact.module.js",
     "preact/hooks": "./node_modules/preact/hooks/dist/hooks.module.js"
   },
-  "packageManager": "pnpm@6.32.3",
+  "packageManager": "pnpm@7.0.1",
   "dependencies": {
     "@ndn/naming-convention2": "https://ndnts-nightly.ndn.today/naming-convention2.tgz",
     "@ndn/packet": "https://ndnts-nightly.ndn.today/packet.tgz",
-    "@ndn/util": "https://ndnts-nightly.ndn.today/tlv.tgz",
     "classnames": "^2.3.1",
     "hashquery": "^1.0.0",
     "js-cookie": "^3.0.1",
-    "mnemonist": "^0.39.0",
-    "preact": "^10.6.6",
+    "mnemonist": "^0.39.1",
+    "preact": "^10.7.2",
     "pretty-ms": "^7.0.1",
-    "purecss": "^2.0.6",
+    "purecss": "^2.1.0",
     "qs": "^6.10.3",
-    "tslib": "^2.3.1"
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.1",
+    "@types/js-cookie": "^3.0.2",
     "@types/qs": "^6.9.7",
-    "@yoursunny/xo-config": "^0.48.0",
+    "@yoursunny/xo-config": "^0.48.4",
     "execa": "^6.1.0",
-    "parcel": "^2.3.2",
-    "typescript": "~4.6.2"
+    "parcel": "^2.5.0",
+    "typescript": "~4.6.4"
   }
 }

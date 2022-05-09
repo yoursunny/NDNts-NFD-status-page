@@ -1,5 +1,4 @@
 import { AltUri } from "@ndn/naming-convention2";
-import { toHex } from "@ndn/util";
 import { h } from "preact";
 import { useContext } from "preact/hooks";
 
@@ -21,7 +20,7 @@ export function StrategyTable({ filter }: Props) {
         </tr>
       </thead>
       {strategies.filter(({ prefix }) => filter(prefix)).map((sc) => (
-        <tr key={toHex(sc.prefix.value)}>
+        <tr key={sc.prefix.valueHex}>
           <td>{AltUri.ofName(sc.prefix)}</td>
           <td>{sc.strategy}</td>
         </tr>

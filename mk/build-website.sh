@@ -1,6 +1,5 @@
 #!/bin/bash
-set -e
-set -o pipefail
+set -euo pipefail
 
 mkdir -p public
 tar cJf public/NDNts-NFD-status-page.txz -C dist .

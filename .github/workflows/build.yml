@@ -8,18 +8,18 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 17
+          node-version: 18
       - run: corepack pnpm install
-      - name: check code style
+      - name: Check code style
         run: |
           corepack pnpm lint
           git diff --exit-code
       - run: corepack pnpm typecheck
       - run: corepack pnpm build
-      - name: prepare demo site
+      - name: Prepare demo site
         run: bash mk/build-website.sh
       - uses: crazy-max/ghaction-github-pages@v2
         with:

@@ -1,5 +1,4 @@
 import type { Name } from "@ndn/packet";
-import { toHex } from "@ndn/util";
 import { h } from "preact";
 import { useContext } from "preact/hooks";
 
@@ -31,7 +30,7 @@ export function RibTable({ selected, filter }: Props) {
         {
           rib.filter(({ prefix }) => filter(prefix)).map((entry) => (
             <RibRow
-              key={toHex(entry.prefix.value)} entry={entry}
+              key={entry.prefix.valueHex} entry={entry}
               highlight={selected?.equals(entry.prefix)}
               onClick={() => gotoRib(entry.prefix)}
             />
