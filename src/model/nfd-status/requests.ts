@@ -1,4 +1,4 @@
-import { NfdStatus } from "./types";
+import { type NfdStatus } from "./types";
 import { parseNfdStatusXml } from "./xml";
 
 interface Options {
@@ -7,6 +7,7 @@ interface Options {
   history: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class NfdStatusRequests {
   constructor(opts: Options) {
     Object.assign(this, opts);
@@ -21,7 +22,7 @@ export class NfdStatusRequests {
     return this.uri;
   }
 
-  private timer = 0;
+  private timer: number | NodeJS.Timeout = 0;
   private recents: NfdStatus[] = [];
 
   public get latest(): NfdStatus | undefined {
@@ -61,4 +62,5 @@ export class NfdStatusRequests {
     }
   };
 }
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export interface NfdStatusRequests extends Options {}

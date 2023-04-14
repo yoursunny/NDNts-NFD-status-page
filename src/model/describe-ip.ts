@@ -8,11 +8,12 @@ type TestbedNodes = Record<string, {
   ip_addresses?: string[];
 }>;
 
+// eslint-disable-next-line unicorn/prefer-top-level-await
 (async () => {
 try {
   const j: TestbedNodes = await (await fetch("https://ndndemo.arl.wustl.edu/testbed-nodes.json")).json();
-  for (const [name, { ip_addresses }] of Object.entries(j)) {
-    for (const ip of ip_addresses ?? []) {
+  for (const [name, { ip_addresses = [] }] of Object.entries(j)) {
+    for (const ip of ip_addresses) {
       ipNames.set(ip, `${ip} (${name})`);
     }
   }

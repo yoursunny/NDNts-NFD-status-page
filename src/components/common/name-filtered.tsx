@@ -1,6 +1,6 @@
-import { Component as NameComponent, Name } from "@ndn/packet";
+import { Component as NameComponent, type Name } from "@ndn/packet";
 import { get as getCookie, set as setCookie } from "js-cookie";
-import { Component, Fragment, h, JSX } from "preact";
+import { Component, Fragment, h, type JSX } from "preact";
 
 import { nameIncludes } from "../../model/nameutil";
 
@@ -40,8 +40,9 @@ export class NameFiltered extends Component<Props, State> {
     return (name: Name) => {
       switch (true) {
         case hideNlsr && (nameIncludes(name, NLSR_ROUTER_COMP) || nameIncludes(name, NLSR_OPERATOR_COMP)):
-        case hideKey && nameIncludes(name, KEY_COMP):
+        case hideKey && nameIncludes(name, KEY_COMP): {
           return false;
+        }
       }
       return true;
     };

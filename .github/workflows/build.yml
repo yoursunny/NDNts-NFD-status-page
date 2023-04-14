@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -21,7 +21,7 @@ jobs:
       - run: corepack pnpm build
       - name: Prepare demo site
         run: bash mk/build-website.sh
-      - uses: crazy-max/ghaction-github-pages@v2
+      - uses: crazy-max/ghaction-github-pages@v3
         with:
           build_dir: ./public/
           commit_message: ${{ github.sha }} ${{ github.run_id }}

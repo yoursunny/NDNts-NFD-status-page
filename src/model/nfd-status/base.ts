@@ -107,10 +107,11 @@ function describeFace(face: Face): void {
   face.title = face.remote;
 
   switch (face.scheme.replace(/\d$/, "")) {
-    case "tcp":
+    case "tcp": {
       face.title = `TCP ${prettyIp(remote.slice(7))}`;
       break;
-    case "udp":
+    }
+    case "udp": {
       if (remote.endsWith(":56363")) {
         let m = /^udp4:\/\/([^:]+):\d+$/.exec(local);
         if (m) {
@@ -125,26 +126,32 @@ function describeFace(face: Face): void {
       }
       face.title = `UDP ${prettyIp(remote.slice(7))}`;
       break;
-    case "fd":
+    }
+    case "fd": {
       face.scheme = "unix";
       face.title = `UNIX fd=${remote.slice(5)}`;
       break;
-    case "ether":
+    }
+    case "ether": {
       if (remote === "ether://[01:00:5e:00:17:aa]") {
         face.title = `Ethernet multicast on ${local.slice(6)}`;
       }
       break;
-    case "internal":
+    }
+    case "internal": {
       face.title = "NFD management";
       break;
-    case "contentstore":
+    }
+    case "contentstore": {
       face.scheme = "internal";
       face.title = "Content Store";
       break;
-    case "null":
+    }
+    case "null": {
       face.scheme = "internal";
       face.title = "packet drop";
       break;
+    }
   }
 }
 
@@ -157,21 +164,25 @@ const LOCALHOP_AUTOCONF_HUB = new Name("/localhop/ndn-autoconf/hub");
 
 function describeFaceRoute({ prefix }: Route, face: Face): void {
   switch (true) {
-    case face.scheme === "unix" && LOCALHOST_NFD.equals(prefix):
+    case face.scheme === "unix" && LOCALHOST_NFD.equals(prefix): {
       face.title = "NFD-RIB management";
       break;
-    case face.scheme === "unix" && prefix.get(-1)?.equals(PING_SUFFIX):
+    }
+    case face.scheme === "unix" && prefix.get(-1)?.equals(PING_SUFFIX): {
       face.title = `ping server ${AltUri.ofName(prefix.getPrefix(-1))}`;
       break;
+    }
     case face.scheme === "unix" &&
          prefix.get(-1)?.equals(NLSR_INFO_SUFFIX_1) &&
          prefix.get(-2)?.equals(NLSR_INFO_SUFFIX_2) &&
-         nameIncludes(prefix, NLSR_ROUTER_COMP):
+         nameIncludes(prefix, NLSR_ROUTER_COMP): {
       face.title = `NLSR ${AltUri.ofName(prefix.getPrefix(-2))}`;
       break;
-    case face.scheme === "unix" && LOCALHOP_AUTOCONF_HUB.equals(prefix):
+    }
+    case face.scheme === "unix" && LOCALHOP_AUTOCONF_HUB.equals(prefix): {
       face.title = "autoconfig server";
       break;
+    }
   }
 }
 

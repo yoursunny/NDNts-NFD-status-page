@@ -4,7 +4,7 @@ import { useContext } from "preact/hooks";
 
 import { NfdStatusContext } from "../../context";
 import { If } from "../common/if";
-import { NameFilter, NameFiltered } from "../common/name-filtered";
+import { type NameFilter, NameFiltered } from "../common/name-filtered";
 import { RibDetail } from "./detail";
 import { RibTable } from "./table";
 

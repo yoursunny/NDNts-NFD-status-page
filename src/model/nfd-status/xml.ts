@@ -1,7 +1,7 @@
 import { AltUri } from "@ndn/naming-convention2";
 
 import { NfdStatusBase } from "./base";
-import { Face, FaceFlags, NfdStatus, PacketCounters, Route, StrategyChoice } from "./types";
+import { type Face, FaceFlags, type NfdStatus, type PacketCounters, type Route, type StrategyChoice } from "./types";
 
 export function parseNfdStatusXml(doc: XMLDocument): NfdStatus {
   const result = new NfdStatusXml();
@@ -16,21 +16,26 @@ class NfdStatusXml extends NfdStatusBase implements NfdStatus {
     }
     for (const ele of iterElements(doc.documentElement)) {
       switch (ele.localName) {
-        case "generalStatus":
+        case "generalStatus": {
           this.parseGeneralStatus(ele);
           break;
-        case "faces":
+        }
+        case "faces": {
           this.parseFaces(ele);
           break;
-        case "rib":
+        }
+        case "rib": {
           this.parseRib(ele);
           break;
-        case "cs":
+        }
+        case "cs": {
           this.parseCs(ele);
           break;
-        case "strategyChoices":
+        }
+        case "strategyChoices": {
           this.parseStrategyChoices(ele);
           break;
+        }
       }
     }
   }
@@ -146,18 +151,22 @@ function assignElements<T extends Record<string, any>>(
     } else {
       const [dst, type] = instruction;
       switch (type) {
-        case "int":
+        case "int": {
           (target as any)[dst] = Number.parseInt(text, 10);
           break;
-        case "str":
+        }
+        case "str": {
           (target as any)[dst] = text;
           break;
-        case "name":
+        }
+        case "name": {
           (target as any)[dst] = AltUri.parseName(text);
           break;
-        case "true":
+        }
+        case "true": {
           (target as any)[dst] = true;
           break;
+        }
       }
     }
   }
@@ -176,20 +185,22 @@ function parsePacketCounters(target: PacketCounters): (text: string, packetCntEl
   return (text, packetCntEle) => {
     for (const node of iterElements(packetCntEle)) {
       switch (node.localName) {
-        case "incomingPackets":
+        case "incomingPackets": {
           assignElements(target, node, {
             nInterests: ["rxInterest", "int"],
             nData: ["rxData", "int"],
             nNacks: ["rxNack", "int"],
           });
           break;
-        case "outgoingPackets":
+        }
+        case "outgoingPackets": {
           assignElements(target, node, {
             nInterests: ["txInterest", "int"],
             nData: ["txData", "int"],
             nNacks: ["txNack", "int"],
           });
           break;
+        }
       }
     }
   };

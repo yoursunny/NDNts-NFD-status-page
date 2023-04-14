@@ -1,7 +1,6 @@
 import { Fragment, h } from "preact";
 
 export function About() {
-  // @ts-expect-error process.env
   const version = process.env.GIT_COMMIT;
   return (
     <>
