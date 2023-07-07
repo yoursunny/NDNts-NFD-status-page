@@ -11,7 +11,7 @@ type TestbedNodes = Record<string, {
 // eslint-disable-next-line unicorn/prefer-top-level-await
 (async () => {
 try {
-  const j: TestbedNodes = await (await fetch("https://ndndemo.arl.wustl.edu/testbed-nodes.json")).json();
+  const j: TestbedNodes = await (await fetch("https://wundngw.wustl.edu/ndnstatus/testbed-nodes.json")).json();
   for (const [name, { ip_addresses = [] }] of Object.entries(j)) {
     for (const ip of ip_addresses) {
       ipNames.set(ip, `${ip} (${name})`);
