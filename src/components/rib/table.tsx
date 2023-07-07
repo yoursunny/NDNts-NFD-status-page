@@ -2,7 +2,7 @@ import type { Name } from "@ndn/packet";
 import { h } from "preact";
 import { useContext } from "preact/hooks";
 
-import { GotoRibContext, NfdStatusContext } from "../../context";
+import { NavContext, NfdStatusContext } from "../../context";
 import type { NameFilter } from "../common/name-filtered";
 import { RibRow } from "./row";
 
@@ -13,7 +13,7 @@ interface Props {
 
 export function RibTable({ selected, filter }: Props) {
   const { rib } = useContext(NfdStatusContext);
-  const gotoRib = useContext(GotoRibContext);
+  const nav = useContext(NavContext);
   return (
     <table class="pure-table pure-table-bordered" style="table-layout:fixed; word-break:break-all;">
       <colgroup>
@@ -32,7 +32,7 @@ export function RibTable({ selected, filter }: Props) {
             <RibRow
               key={entry.prefix.valueHex} entry={entry}
               highlight={selected?.equals(entry.prefix)}
-              onClick={() => gotoRib(entry.prefix)}
+              onClick={() => nav.rib(entry.prefix)}
             />
           ))
         }

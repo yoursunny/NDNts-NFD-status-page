@@ -3,7 +3,7 @@ import type { Name } from "@ndn/packet";
 import { get as hashGet, set as hashSet } from "hashquery";
 import { Component, Fragment, h } from "preact";
 
-import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext, OldNfdStatusContext } from "../context";
+import { NavContext, type NavFuncs, NfdStatusContext, OldNfdStatusContext } from "../context";
 import type { NfdStatusRequests } from "../model/nfd-status/requests";
 import type { NfdStatus } from "../model/nfd-status/types";
 import { About } from "./about";
@@ -37,24 +37,24 @@ export class App extends Component<Props, State> {
     this.props.requests.onFetched = (status) => this.setState({ status });
   }
 
-  private gotoFace = (id?: number) => {
-    this.setState({
-      currentTab: "Faces",
-      currentFace: id,
-    });
-  };
-
-  private gotoRib = (name?: Name) => {
-    this.setState({
-      currentTab: "Routes",
-      currentRibEntry: name,
-    });
-  };
-
-  private gotoStrategies = () => {
-    this.setState({
-      currentTab: "Strategies",
-    });
+  private nav: NavFuncs = {
+    face: (id) => {
+      this.setState({
+        currentTab: "Faces",
+        currentFace: id,
+      });
+    },
+    rib: (name) => {
+      this.setState({
+        currentTab: "Routes",
+        currentRibEntry: name,
+      });
+    },
+    strategies: () => {
+      this.setState({
+        currentTab: "Strategies",
+      });
+    },
   };
 
   public override getSnapshotBeforeUpdate() {
@@ -69,13 +69,9 @@ export class App extends Component<Props, State> {
     return (
       <NfdStatusContext.Provider value={latest}>
         <OldNfdStatusContext.Provider value={oldest}>
-          <GotoFaceContext.Provider value={this.gotoFace}>
-            <GotoRibContext.Provider value={this.gotoRib}>
-              <GotoStrategiesContext.Provider value={this.gotoStrategies}>
-                {this.renderView()}
-              </GotoStrategiesContext.Provider>
-            </GotoRibContext.Provider>
-          </GotoFaceContext.Provider>
+          <NavContext.Provider value={this.nav}>
+            {this.renderView()}
+          </NavContext.Provider>
         </OldNfdStatusContext.Provider>
       </NfdStatusContext.Provider>
     );
@@ -83,7 +79,7 @@ export class App extends Component<Props, State> {
 
   private renderView() {
     const { currentTab: tab } = this.state;
-    const version = this.props.requests.latest!.host.version;
+    const { version } = this.props.requests.latest!.host;
     return (
       <>
         <div class="pure-g">

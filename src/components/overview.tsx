@@ -2,15 +2,13 @@ import { Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 import prettyMilliseconds from "pretty-ms";
 
-import { GotoFaceContext, GotoRibContext, GotoStrategiesContext, NfdStatusContext } from "../context";
+import { NavContext, NfdStatusContext } from "../context";
 
 export function Overview() {
   const status = useContext(NfdStatusContext);
   const { host, faces, rib, routes, defaultStrategy } = status;
   const { cnt } = host;
-  const gotoFace = useContext(GotoFaceContext);
-  const gotoRib = useContext(GotoRibContext);
-  const gotoStrategies = useContext(GotoStrategiesContext);
+  const nav = useContext(NavContext);
   return (
     <>
       <h1>NFD {host.version}</h1>
@@ -20,7 +18,7 @@ export function Overview() {
           <td>{prettyMilliseconds(status.timestamp - host.startTime)}</td>
         </tr>
         <tr>
-          <td onClick={() => gotoFace()}><a href="javascript:;">faces</a></td>
+          <td onClick={() => nav.face()}><a href="javascript:;">faces</a></td>
           <td>{faces.length}</td>
         </tr>
         <tr>
@@ -40,11 +38,11 @@ export function Overview() {
           <td>{cnt.csEntry} entries, {cnt.csHit} hits, {cnt.csMiss} misses</td>
         </tr>
         <tr>
-          <td onClick={() => gotoRib()}><a href="javascript:;">RIB</a></td>
+          <td onClick={() => nav.rib()}><a href="javascript:;">RIB</a></td>
           <td>{rib.length} entries, {routes.length} routes</td>
         </tr>
         <tr>
-          <td onClick={() => gotoStrategies()}><a href="javascript:;">strategy</a></td>
+          <td onClick={() => nav.strategies()}><a href="javascript:;">strategy</a></td>
           <td>{defaultStrategy}</td>
         </tr>
       </table>

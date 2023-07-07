@@ -2,7 +2,7 @@ import { AltUri } from "@ndn/naming-convention2";
 import { Fragment, h } from "preact";
 import { useContext } from "preact/hooks";
 
-import { GotoRibContext, NfdStatusContext, OldNfdStatusContext } from "../../context";
+import { NavContext, NfdStatusContext, OldNfdStatusContext } from "../../context";
 import type { Face, FaceFlag, PacketCounters, Route } from "../../model/nfd-status/types";
 import { If } from "../common/if";
 import { RouteDetail } from "../common/route";
@@ -68,7 +68,7 @@ function FaceFlags({ flags }: { flags: FaceFlag[] }) {
 }
 
 function FaceRoutes({ routes }: { routes: Route[] }) {
-  const gotoRib = useContext(GotoRibContext);
+  const nav = useContext(NavContext);
   return (
     <table class="pure-table pure-table-bordered" style="table-layout:fixed; word-break:break-all;">
       <colgroup>
@@ -89,7 +89,7 @@ function FaceRoutes({ routes }: { routes: Route[] }) {
             key={`${route.prefix.valueHex} ${route.origin}`}
             route={route} showFlags={false}
           >
-            <td onClick={() => gotoRib(route.prefix)}>
+            <td onClick={() => nav.rib(route.prefix)}>
               <a href="javascript:;">
                 {AltUri.ofName(route.prefix)}
               </a>

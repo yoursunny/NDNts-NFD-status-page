@@ -1,7 +1,7 @@
 import { h } from "preact";
 import { useContext } from "preact/hooks";
 
-import { GotoFaceContext, NfdStatusContext } from "../../context";
+import { NavContext, NfdStatusContext } from "../../context";
 import { FaceRow } from "./row";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export function FaceTable({ selected }: Props) {
   const { faces } = useContext(NfdStatusContext);
-  const gotoFace = useContext(GotoFaceContext);
+  const nav = useContext(NavContext);
   return (
     <table class="pure-table pure-table-bordered">
       <thead>
@@ -26,7 +26,7 @@ export function FaceTable({ selected }: Props) {
           faces.map((face) => (
             <FaceRow
               key={face.id} face={face} highlight={face.id === selected}
-              onClick={() => gotoFace(face.id)}
+              onClick={() => nav.face(face.id)}
             />
           ))
         }

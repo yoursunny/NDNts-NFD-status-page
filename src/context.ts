@@ -6,6 +6,14 @@ import type { NfdStatus } from "./model/nfd-status/types";
 export const NfdStatusContext = createContext<NfdStatus>({} as any);
 export const OldNfdStatusContext = createContext<NfdStatus>({} as any);
 
-export const GotoFaceContext = createContext<(id?: number) => void>(() => undefined);
-export const GotoRibContext = createContext<(prefix?: Name) => void>(() => undefined);
-export const GotoStrategiesContext = createContext<() => void>(() => undefined);
+export interface NavFuncs {
+  face(id?: number): void;
+  rib(prefix?: Name): void;
+  strategies(): void;
+}
+
+export const NavContext = createContext<NavFuncs>({
+  face: () => undefined,
+  rib: () => undefined,
+  strategies: () => undefined,
+});
