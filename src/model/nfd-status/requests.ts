@@ -7,7 +7,6 @@ interface Options {
   history: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 export class NfdStatusRequests {
   constructor(opts: Options) {
     Object.assign(this, opts);
@@ -30,7 +29,7 @@ export class NfdStatusRequests {
   }
 
   public get oldest(): NfdStatus | undefined {
-    return this.recents[this.recents.length - 1];
+    return this.recents.at(-1);
   }
 
   public start(): void {
@@ -62,5 +61,5 @@ export class NfdStatusRequests {
     }
   };
 }
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
+
 export interface NfdStatusRequests extends Options {}

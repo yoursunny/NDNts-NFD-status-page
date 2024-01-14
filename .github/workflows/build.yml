@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
       - run: corepack pnpm install
@@ -21,7 +21,7 @@ jobs:
       - run: corepack pnpm build
       - name: Prepare demo site
         run: bash mk/build-website.sh
-      - uses: crazy-max/ghaction-github-pages@v3
+      - uses: crazy-max/ghaction-github-pages@v4
         with:
           build_dir: ./public/
           commit_message: ${{ github.sha }} ${{ github.run_id }}
