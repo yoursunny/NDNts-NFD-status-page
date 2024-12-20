@@ -1,3 +1,5 @@
+import { pEvent } from "p-event";
+
 import { type NfdStatus } from "./types";
 import { parseNfdStatusXml } from "./xml";
 
@@ -43,7 +45,7 @@ export class NfdStatusRequests {
   private update = async () => {
     try {
       if (document.hidden) {
-        await new Promise((r) => document.addEventListener("visibilitychange", r));
+        await pEvent(document, "visibilitychange");
       }
 
       const request = new Request(this.uri);
