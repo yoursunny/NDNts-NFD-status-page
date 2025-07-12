@@ -24,7 +24,7 @@ const NLSR_OPERATOR_COMP = NameComponent.from("%C1.Operator");
 const KEY_COMP = NameComponent.from("KEY");
 
 export class NameFiltered extends Component<Props, State> {
-  public override componentDidMount() {
+  public override componentWillMount() {
     let toggles: Toggles;
     try {
       const { hideNlsr, hideKey } = JSON.parse(getCookie("NameFiltered")!);

@@ -30,6 +30,7 @@ interface State {
 export class App extends Component<Props, State> {
   constructor() {
     super();
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
     this.setState({ currentTab: hashGet("tab") || "Overview" });
   }
 

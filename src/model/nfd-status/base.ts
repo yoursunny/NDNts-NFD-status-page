@@ -173,9 +173,9 @@ function describeFaceRoute({ prefix }: Route, face: Face): void {
       break;
     }
     case face.scheme === "unix" &&
-         prefix.get(-1)?.equals(NLSR_INFO_SUFFIX_1) &&
-         prefix.get(-2)?.equals(NLSR_INFO_SUFFIX_2) &&
-         nameIncludes(prefix, NLSR_ROUTER_COMP): {
+      prefix.get(-1)?.equals(NLSR_INFO_SUFFIX_1) &&
+      prefix.get(-2)?.equals(NLSR_INFO_SUFFIX_2) &&
+      nameIncludes(prefix, NLSR_ROUTER_COMP): {
       face.title = `NLSR ${AltUri.ofName(prefix.getPrefix(-2))}`;
       break;
     }
@@ -191,7 +191,7 @@ const LOCALHOST_NFD_STRATEGY = new Name("/localhost/nfd/strategy");
 function describeStrategy(sc: StrategyChoice): void {
   const name = AltUri.parseName(sc.strategy);
   if (LOCALHOST_NFD_STRATEGY.isPrefixOf(name) &&
-      name.length >= 5 && name.get(4)!.is(Version)) {
+    name.length >= 5 && name.get(4)!.is(Version)) {
     sc.strategy = `${AltUri.ofComponent(name.get(3)!)} v${name.get(4)!.as(Version)} ${AltUri.ofName(name.slice(5)).slice(1)}`;
   }
 }

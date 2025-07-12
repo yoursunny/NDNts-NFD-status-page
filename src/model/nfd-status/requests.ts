@@ -50,11 +50,11 @@ export class NfdStatusRequests {
 
       const request = new Request(this.uri);
       request.headers.set("Accept", "application/xml; text/xml; */*");
-      const xml = await fetch(request).then((r) => r.text());
-      const doc = new DOMParser().parseFromString(xml, "application/xml");
+      const response = await fetch(request);
+      const doc = new DOMParser().parseFromString(await response.text(), "application/xml");
       const status = parseNfdStatusXml(doc);
       this.recents.unshift(status);
-      this.recents.splice(this.history, Infinity);
+      this.recents.splice(this.history);
       this.onFetched?.(status);
     } catch (err: unknown) {
       console.warn(err);

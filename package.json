@@ -11,28 +11,28 @@
     "preact": "./node_modules/preact/dist/preact.module.js",
     "preact/hooks": "./node_modules/preact/hooks/dist/hooks.module.js"
   },
-  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf",
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
   "dependencies": {
     "@ndn/naming-convention2": "https://ndnts-nightly.ndn.today/naming-convention2.tgz",
     "@ndn/packet": "https://ndnts-nightly.ndn.today/packet.tgz",
-    "@typescript/lib-dom": "npm:@types/web@0.0.186",
+    "@typescript/lib-dom": "npm:@types/web@0.0.246",
     "classnames": "^2.5.1",
     "hashquery": "^1.0.0",
     "js-cookie": "^3.0.5",
-    "mnemonist": "^0.39.8",
+    "mnemonist": "^0.40.3",
     "p-event": "^6.0.1",
-    "preact": "^10.25.3",
+    "preact": "^10.26.9",
     "pretty-ms": "^9.2.0",
     "purecss": "^3.0.0",
-    "qs": "^6.13.1",
+    "qs": "^6.14.0",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
-    "@types/qs": "^6.9.17",
-    "@yoursunny/xo-config": "^0.60.0",
-    "execa": "^9.5.2",
-    "parcel": "^2.13.3",
-    "typescript": "~5.7.2"
+    "@types/qs": "^6.14.0",
+    "@yoursunny/xo-config": "^0.1001.0",
+    "execa": "^9.6.0",
+    "parcel": "^2.15.4",
+    "typescript": "~5.8.3"
   }
 }
