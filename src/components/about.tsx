@@ -1,5 +1,9 @@
 import { Fragment, h } from "preact";
 
+declare global {
+  const process: any;
+}
+
 export function About() {
   const version = process.env.GIT_COMMIT;
   return (

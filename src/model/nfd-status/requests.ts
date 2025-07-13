@@ -1,6 +1,6 @@
 import { pEvent } from "p-event";
 
-import { type NfdStatus } from "./types";
+import type { NfdStatus } from "./types";
 import { parseNfdStatusXml } from "./xml";
 
 interface Options {
@@ -23,7 +23,7 @@ export class NfdStatusRequests {
     return this.uri;
   }
 
-  private timer: number | NodeJS.Timeout = 0;
+  private timer = 0;
   private recents: NfdStatus[] = [];
 
   public get latest(): NfdStatus | undefined {

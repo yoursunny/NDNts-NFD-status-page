@@ -1,5 +1,5 @@
 import { Component as NameComponent, type Name } from "@ndn/packet";
-import { get as getCookie, set as setCookie } from "js-cookie";
+import jsCookie from "js-cookie";
 import { Component, Fragment, h, type JSX } from "preact";
 
 import { nameIncludes } from "../../model/nameutil";
@@ -27,7 +27,7 @@ export class NameFiltered extends Component<Props, State> {
   public override componentWillMount() {
     let toggles: Toggles;
     try {
-      const { hideNlsr, hideKey } = JSON.parse(getCookie("NameFiltered")!);
+      const { hideNlsr, hideKey } = JSON.parse(jsCookie.get("NameFiltered")!);
       toggles = { hideNlsr: !!hideNlsr, hideKey: !!hideKey };
     } catch {
       toggles = { hideNlsr: false, hideKey: false };
@@ -36,7 +36,7 @@ export class NameFiltered extends Component<Props, State> {
   }
 
   private makeFilter({ hideNlsr, hideKey }: Readonly<Toggles>): NameFilter {
-    setCookie("NameFiltered", JSON.stringify({ hideNlsr, hideKey }), { path: "", sameSite: "Strict" });
+    jsCookie.set("NameFiltered", JSON.stringify({ hideNlsr, hideKey }), { path: "", sameSite: "Strict" });
     return (name: Name) => {
       switch (true) {
         case hideNlsr && (nameIncludes(name, NLSR_ROUTER_COMP) || nameIncludes(name, NLSR_OPERATOR_COMP)):
