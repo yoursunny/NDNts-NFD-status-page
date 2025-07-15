@@ -29,13 +29,15 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "@types/qs": "^6.14.0",
-    "@yoursunny/xo-config": "^0.1001.0",
+    "@yoursunny/xo-config": "^0.1001.1",
     "execa": "^9.6.0",
     "parcel": "^2.15.4",
     "typescript": "~5.8.3"
   },
   "@parcel/transformer-js": {
     "inlineFS": false,
-    "inlineEnvironment": ["GIT_COMMIT"]
+    "inlineEnvironment": [
+      "GIT_COMMIT"
+    ]
   }
 }

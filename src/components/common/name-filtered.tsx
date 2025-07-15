@@ -24,7 +24,9 @@ const NLSR_OPERATOR_COMP = NameComponent.from("%C1.Operator");
 const KEY_COMP = NameComponent.from("KEY");
 
 export class NameFiltered extends Component<Props, State> {
-  public override componentWillMount() {
+  constructor(props: Props) {
+    super(props);
+
     let toggles: Toggles;
     try {
       const { hideNlsr, hideKey } = JSON.parse(jsCookie.get("NameFiltered")!);
@@ -32,7 +34,7 @@ export class NameFiltered extends Component<Props, State> {
     } catch {
       toggles = { hideNlsr: false, hideKey: false };
     }
-    this.setState({ ...toggles, filter: this.makeFilter(toggles) });
+    this.state = { ...toggles, filter: this.makeFilter(toggles) };
   }
 
   private makeFilter({ hideNlsr, hideKey }: Readonly<Toggles>): NameFilter {
